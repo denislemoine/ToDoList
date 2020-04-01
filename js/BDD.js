@@ -20,19 +20,9 @@ firebase.analytics();
 
 
 
-
-
-//base right
-{
-    "rules": {
-        ".read": "true",
-        ".write": "true"
-      }
-  }
-
-
-
-
 //User
+
+var userGet = db.users('firstname');
+console.log(userGet);
 
 //ToDo
