@@ -1,66 +1,77 @@
-var updateStats = function(){
-    $("#totalTodo").text(
-       $(".todoList li").length
-    );
-    $("#remainTodo").text(
-      $(".todoList li:not(.done)").length
-    );
-    if ($(".todoList li").length === 0){
-        $(".todoList").addClass("empty")
-    } else {
-        $(".todoList").removeClass("empty")
+// TODOS PAGE
+
+showTodos();
+$("#todoAdd").on('click', addTodo);
+$("#deleteAll").on('click', deleteAllTodos);
+
+function showTodos() {
+    $("#all").empty();
+    let todo_tmp = new Todo;
+    todo_tmp.getAll().then(function (todos) {
+        todos.forEach(function (todo) {
+            if (todo.status === 2) {
+                var checked = true;
+            } else {
+                var checked = false;
+            }
+            $("#all").append(createItem(todo.name, todo.id, checked))
+        });
+        $(".deleteTodo").on('click', deleteTodo);
+        $(".status").on('click', toggleTodo);
+    });
+}
+
+function addTodo() {
+    var input = $("#todoInput");
+    if(input.val()) {
+        let todo = new Todo(input.val(), "", 0);
+        todo.add();
     }
-};
+    input.val();
+    showTodos()
+}
 
-var todoItem = function(text,checked){
-    var innerHtml = '<li' + (checked ? ' class="done"' : "") + '>'
-        + '<input type="checkbox"' + (checked? 'checked': '' )+ '/>'
+function deleteTodo() {
+    let todo = new Todo();
+    todo.delete(this.parentElement.id);
+    showTodos();
+}
+
+function deleteAllTodos(){
+    var sureDelete = confirm("Êtes-vous sûr de vouloir supprimer toute la liste ?");
+    if(sureDelete){
+        let todo_tmp = new Todo;
+        todo_tmp.getAll().then(function (todos) {
+            todos.forEach(function (todo) {
+                todo.delete(todo.id);
+            })
+        })
+    }
+    showTodos()
+}
+
+function createItem(text, id, checked){
+    let innerHtml = '<li id=' +  id + (checked ? ' class="done"' : "") + '>'
+        + '<input type="checkbox" class="status"' + (checked? 'checked': '' )+ '/>'
         + '<span>' + text + '</span>'
-        + '<a href="javascript:" class="delete">delete</a>'
-        + '</li>'
+        + '<button class="deleteTodo">delete</button>'
+        + '</li>';
     return innerHtml;
-};
+}
 
-var toggleTodo = function(){
-
-    var $li = $(this);
-    $li.toggleClass("done");
-    $li.find('input[type="checkbox"]')
-       .attr("checked",$li.hasClass('done'));
-
-    updateStats();
-};
+function toggleTodo(){
+    let todo = new Todo;
+    if(this.checked) {
+        todo.updateStatus(this.parentElement.id, 2);
+    } else {
+        todo.updateStatus(this.parentElement.id, 0);
+    }
+    showTodos();
+}
 
 var refreshBrowser = function(){
     location = location;
-}
-
-$(".todoList").on('click', "li", toggleTodo)
-$(".todoList").on('click', ".delete", function(){
-   $(this).closest('li').remove();
-   updateStats();
-})
-// Add list
-$("#todoAdd").on('click',function(){
-    var $input = $("#todoInput");
-    if ($input.val()){
-        $(".todoList").append(todoItem(
-            $input.val(), false //checked
-        ));
-        $input.val("");
-    };
-    updateStats();
-})
-
-// Delete All List
-$("#deleteAll").on('click',function(){
-    //var sureDelete = true;
-    var sureDelete = confirm("Etes-vous sûr de vouloir supprimer toute la liste?");
-    if(sureDelete){
-        $('.todoList li').remove();
-        updateStats();
-    }
-});
+};
 
 // CO-WORKERS PAGE
 
