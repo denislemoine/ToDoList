@@ -81,7 +81,3 @@ class Todo {
     }
 }
 
-test = new Todo;
-test.getOne("aE9iDlJmnmtzWG6ZSfRI").then( function(todo) {
-    todo.update("description", "Nouvelle description !!!");
-});
