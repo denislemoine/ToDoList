@@ -20,7 +20,7 @@ var userClass = class {
     };
 
 
-    getAllUser() {
+    getAll() {
         let userArray = [];
         return db.collection("users").withConverter(this.userConverter).get().then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
@@ -33,11 +33,11 @@ var userClass = class {
         });
     }
 
-    getOneUser() {
+    getOne() {
 
     }
 
-    setAddUser (){
+    setAdd (){
        /* db.collection("users").add({
             firstname: "data.firstname",
             lastname: "data.lastname",
@@ -51,7 +51,7 @@ var userClass = class {
      });*/
     }
 
-    setModifyUser () {
+    setModify () {
         
     }
 
@@ -65,6 +65,6 @@ var userClass = class {
 
 
 var getUser = new userClass();
-getUser.getAllUser().then(function (userArray){
+getUser.getAll().then(function (userArray){
     console.log(userArray);
 }); 
