@@ -110,4 +110,18 @@ $(".deleteCoworker").on('click', function () {
     }
     showCoworkers();
 });
+
+// Modified Background
+
+$(document).ready(function(){ 
+    $("a.one").click( function(){ 
+        $ ("body").removeClass('bg2 , bg3').addClass("bg1"); 
+    }); 
+    $("a.two").click( function(){ 
+        $ ("body").removeClass("bg1 , bg3").addClass("bg2");
+     }); 
+     $("a.three").click( function(){ 
+         $ ("body").removeClass("bg1 , bg2").addClass("bg3"); 
+        }); 
+});
   
