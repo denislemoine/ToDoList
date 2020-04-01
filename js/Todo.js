@@ -19,21 +19,35 @@ class Todo {
     };
 
     getAll() {
-        db.collection("todos").get().then(function (querySnapshot) {
-            console.log(querySnapshot)
+        let todoArray = [];
+        return db.collection("todos").withConverter(this.todoConverter).get().then(function (querySnapshot) {
+            querySnapshot.forEach(function (doc) {
+                let todo = doc.data();
+                todo.id = doc.id;
+                todoArray.push(todo);
+            });
+            return todoArray;
         })
     }
 
-    getByStatus(id) {
-        db.collection("todos").where("id", "==", id).get().then(function (querySnapshot) {
-            console.log(querySnapshot)
+    getByStatus(status) {
+        let todoArray = [];
+        return db.collection("todos").where("status", "==", status).withConverter(this.todoConverter).get().then(function (querySnapshot) {
+            querySnapshot.forEach(function (doc) {
+                let todo = doc.data();
+                todo.id = doc.id;
+                todoArray.push(todo);
+            });
+            return todoArray;
         })
     }
 
     getOne(id) {
-        db.collection("todos").doc(id).then(function (doc) {
+        return db.collection("todos").doc(id).withConverter(this.todoConverter).get().then(function (doc) {
             if (doc.exists) {
-                console.log(doc.data)
+                let todo = doc.data();
+                todo.id = id;
+                return todo;
             } else {
                 console.log("No such document!")
             }
@@ -42,7 +56,32 @@ class Todo {
         })
     }
 
-    setOne() {
+    add() {
+        db.collection("todos").withConverter(this.todoConverter).add(this).then(function (docRef) {
+            console.log("Document written with ID: ", docRef.id);
+        }).catch(function (error) {
+            console.error("Error adding document: ", error);
+        });
+    }
 
+    delete() {
+        db.collection("todos").doc(this.id).delete().then(function () {
+            console.log("Document successfully deleted");
+        }).catch(function (error) {
+            console.error("Error removing document: ", error);
+        });
+    }
+
+    update(field, value) {
+        db.collection("todos").doc(this.id).update({field: value}).then(function () {
+            console.log("Document successfully updated");
+        }).catch(function (error) {
+            console.log("Error updating document: ", error);
+        });
     }
 }
+
+test = new Todo;
+test.getOne("aE9iDlJmnmtzWG6ZSfRI").then( function(todo) {
+    todo.update("description", "Nouvelle description !!!");
+});

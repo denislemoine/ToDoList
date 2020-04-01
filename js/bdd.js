@@ -6,18 +6,3 @@ firebase.initializeApp({
   });
   
   var db = firebase.firestore();
-  console.log(db);
-
-//Ad data to user
- db.collection("users").add({
-    firstname: "Ada",
-    lastname: "Lovelace",
-    todos : "2"
-})
-.then(function(docRef) {
-    console.log("Document written with ID: ", docRef.id);
-})
-.catch(function(error) {
-    console.error("Error adding document: ", error);
-});
-
