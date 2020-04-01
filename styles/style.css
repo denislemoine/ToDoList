@@ -121,3 +121,7 @@ body{
 input:focus{
     outline:none;
 }
+
+.hidden {
+    display: None;
+}

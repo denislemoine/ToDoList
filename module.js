@@ -1,3 +1,4 @@
+// Todos page
 var updateStats = function(){
     $("#totalTodo").text(
        $(".todoList li").length
@@ -60,5 +61,54 @@ $("#deleteAll").on('click',function(){
         $('.todoList li').remove();
         updateStats();
     }
+});
+
+// CO-WORKERS PAGE
+
+// Go to co-workers page
+$("#coworkers").on('click', function () {
+    $("#todoContainer").addClass("hidden");
+    $("#coworkersContainer").removeClass("hidden");
+});
+
+// Show coworkers
+var coworkers = [
+    {id: 1, firstname: "Noémie", lastname: "Foulon"},
+    {id: 2, firstname: "Denis", lastname: "Lemoine"},
+    {id: 3, firstname: "Caroline", lastname: "Fouquet"}
+    ];
+
+let coworkerItem = function (firstname, lastname, id) {
+    let innerHTML = "<li>" + firstname + ' ' + lastname + "<button class='deleteCoworker' id=" + id  + ">Supprimer</button></li>";
+    return innerHTML;
+};
+
+function showCoworkers() {
+    $("#coworkersList").empty();
+    coworkers.forEach(function (coworker) {
+        $("#coworkersList").append(coworkerItem(coworker.firstname, coworker.lastname, coworker.id));
+    });
+}
+
+showCoworkers();
+
+// Add coworker
+$("#addCoworker").on('click', function () {
+    let firstnameInput = $("#firstname").val();
+    let lastnameInput = $("#lastname").val();
+    let coworker = {firstname: firstnameInput, lastname: lastnameInput};
+    coworkers.push(coworker);
+    showCoworkers();
+});
+
+// Delete coworker
+$(".deleteCoworker").on('click', function () {
+    for(let i=0;i<coworkers.length;i++) {
+        if (coworkers[i].id === Number($(this).attr('id'))) {
+            console.log('test2');
+            coworkers.splice(i, 1);
+        }
+    }
+    showCoworkers();
 });
   
