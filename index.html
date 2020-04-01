@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-	<meta charset="UTF-8">
+  <meta charset="UTF-8">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <link rel="stylesheet" href="styles/style.css">
   <script type="module" src="module.js"></script>
-	<title>Ma To Do List</title>
+  <title>Ma To Do List</title>
 </head>
 <body>
 <nav class="navbar navbar-dark bg-dark navbar-expand-lg dogs">
   <a href="index.html" class="navbar-brand goats">To Do List</a>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
-      <a class="nav-item nav-link" href="#">Collaborateur</a>
+      <a id="coworkers" class="nav-item nav-link" href="#">Collaborateurs</a>
       <a class="nav-item nav-link active" href="#">Paramètre</a>
     </div>
   </div>
@@ -26,24 +26,35 @@
 </nav>
 <div id="todoContainer" class="container">
   <div class="row">
-    
-  
-  <div class="todoForm">
+
+
+    <div class="todoForm">
       <input type="text" placeholder="Ajouter une nouvelle tâche" id="todoInput"/>
       <a href="javascript:" id="todoAdd" class="button">Ajouter</a>
-  </div>
-  <div>
+    </div>
+    <div>
     <span class="tools">
         <a href="javascript:;" id = "resetTodo">Recharger</a>
         <a href="javascript:;" id="deleteAll">Supprimer toute la liste</a>
     </span>
-</div>
-</div>
+    </div>
+  </div>
   <ul class="todoList">
-      <p class="msg">
-        Tu as tout fait! Ajoutez-en plus.
-      </p>
+    <p class="msg">
+      Tu as tout fait! Ajoutez-en plus.
+    </p>
   </ul>
+</div>
+
+<div id="coworkersContainer" class="container hidden">
+  <h2>Collaborateurs</h2>
+  <ul id="coworkersList">
+  </ul>
+  <div id="coworkerForm">
+    <input type="text" placeholder="Nom" id="lastname"/>
+    <input type="text" placeholder="Prénom" id="firstname"/>
+    <button id="addCoworker">Ajouter un collaborateur</button>
+  </div>
 </div>
 
 <footer class="bg-dark">
