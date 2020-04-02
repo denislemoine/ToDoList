@@ -45,8 +45,8 @@ function showTodos(column, status) {
                 $(column).append(createItem(todo.name, todo.id, checked));
             }
         });
+        $(".deleteTodo").off('click');
         $(".deleteTodo").on('click', deleteTodo);
-        $(".status").on('click', toggleTodo);
     });
 }
 
