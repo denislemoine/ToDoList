@@ -6,6 +6,7 @@ function goToCoworkers() {
     $("#coworkersContainer").removeClass("hidden");
 }
 
+
 // TODOS PAGE
 initColumn();
 $("#todoAdd").on('click', addTodo);
@@ -102,32 +103,6 @@ var refreshBrowser = function(){
     location = location;
 };
 
-$(".todoList").on('click', "li", toggleTodo)
-$(".todoList").on('click', ".delete", function(){
-   $(this).closest('li').remove();
-   updateStats();
-});
-
-// Add list
-$("#todoAdd").on('click',function(){
-    var $input = $("#todoInput");
-    if ($input.val()){
-        $(".todoList").append(todoItem(
-            $input.val(), false //checked
-        ));
-        $input.val("");
-    };
-    updateStats();
-})
-
-// Delete All List
-$("#deleteAll").on('click',function(){
-    //var sureDelete = true;
-    var sureDelete = confirm("Etes-vous sûr de vouloir supprimer toute la liste?");
-    if(sureDelete){
-        $('.todoList li').remove();
-        updateStats();
-    }
 // CO-WORKERS PAGE
 $("#addCoworker").on('click', function () {
     console.log("click");
@@ -162,8 +137,9 @@ function deleteUser() {
     showCoworkers();
 }
 
-// CO-WORKERS PAGE
 
+// CO-WORKERS PAGE
+showCoworkers();
 
 function showCoworkers() {
     $("#coworkersList").empty();
@@ -205,10 +181,6 @@ function deleteCoworker() {
     showCoworkers();
 }
 
-// Go to co-workers page
-
-showCoworkers();
-
 // Modified Background
 
 $(document).ready(function(){
@@ -228,4 +200,4 @@ $('li.dropdown').hover(function() {
     $(this).find('.dropdown-menu').stop(true, true).delay(300).fadeIn(500);
   }, function() {
     $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeOut(500);
-  })});
+  });
