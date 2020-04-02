@@ -40,6 +40,7 @@ $(".todoList").on('click', ".delete", function(){
    $(this).closest('li').remove();
    updateStats();
 })
+
 // Add list
 $("#todoAdd").on('click',function(){
     var $input = $("#todoInput");
@@ -124,4 +125,13 @@ $(document).ready(function(){
          $ ("body").removeClass("bg1 , bg2").addClass("bg3"); 
         }); 
 });
+
+// dropdown menu
+$('li.dropdown').hover(function() {
+    $(this).find('.dropdown-menu').stop(true, true).delay(300).fadeIn(500);
+  }, function() {
+    $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeOut(500);
+  });
+
+
   

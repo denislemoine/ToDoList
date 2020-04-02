@@ -8,72 +8,106 @@
   <title>Ma To Do List</title>
 </head>
 <body>
-<nav class="navbar navbar-dark bg-dark navbar-expand-lg dogs">
-  <a href="index.html" class="navbar-brand goats">To Do List</a>
-  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-    <div class="navbar-nav">
-      <a id="coworkers" class="nav-item nav-link" href="#">Collaborateurs</a>
-      <a class="nav-item nav-link active" href="#">Paramètre</a>
-      <a class="one nav-item nav-link" href="#">Background 1</a>
-      <a class="two nav-item nav-link" href="#">Background 2</a>
+                      <!--  Nav Bar -->
+  <nav class="navbar navbar-dark bg-dark navbar-expand-lg dogs">
+    <a href="index.html" class="navbar-brand goats">To Do List</a>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a id="coworkers" class="nav-item nav-link" href="#">Collaborateurs</a>
+        <a class="dropdown-toggle nav-item nav-link" href="#" data-toggle="dropdown">Changer le décor<b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li class="divider"></li>
+            <li><a class="one" href="#">Background 1</a></li>
+            <li class="divider"></li>
+            <li><a class="two" href="#">Background 2</a></li>
+          </ul>  
+      </div>
+    </div>
+    <div class="search-bar">
+      <i class="fas fa-search kittens"></i>
+      <input type="text">
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon cats"></span>
+    </button>
+  </nav>
+                      <!-- End Nav Bar -->
+
+                      <!--  List ToDoList -->
+  <section>
+  <div class="app" mv-app="appName" mv-storage="local">
+    <div class="board" property="board" mv-multiple>   
+      <div class="board-container">
+        <ul class="column">
+          <div id ="root" class="todoForm">
+            <input type="text" placeholder="Ajouter une nouvelle tâche" id="todoInput"/>
+            <a href="javascript:" id="todoAdd" class="button">Ajouter</a>
+          </div>
+        <div>
+          <span class="tools">
+              <a href="javascript:;" id = "resetTodo">Recharger</a>
+              <a href="javascript:;" id="deleteAll">Supprimer toute la liste</a>
+          </span>
+        </div>
+        <ul class="todoList">
+          <p class="msg">
+            Tu as tout fait! Ajoutez-en plus.
+          </p>  
+        </ul>
+          <li class="title">Todo à Faire</li>
+          <li class="card" property="todo" mv-multiple mv-accepts="todo in_progress completed">Todo 1</li>
+        </ul>
+        <ul class="column">
+          <li class="title">En cours</li>
+          <li class="card" property="in_progress" mv-multiple mv-accepts="todo in_progress completed">
+            <p property="title">In progress 1</p>
+            <ul class="tasks-list">
+              <li class="task" mv-multiple="task" mv-initial-items="0">
+                <input type="checkbox" property="done"/>
+                <span property="task_name"></span>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <ul class="column">
+          <li class="title">Terminer</li>
+          <li class="card" property="completed" mv-multiple  mv-accepts="todo in_progress completed">Completed 1</li>
+        </ul>
+      </div>
     </div>
   </div>
-  <div class="search-bar">
-    <i class="fas fa-search kittens"></i>
-    <input type="text">
-  </div>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon cats"></span>
-  </button>
-</nav>
-<div id="todoContainer" class="container">
-  <div class="row">
+</section>
+                        <!-- End List ToDoList -->
 
-
-    <div class="todoForm">
-      <input type="text" placeholder="Ajouter une nouvelle tâche" id="todoInput"/>
-      <a href="javascript:" id="todoAdd" class="button">Ajouter</a>
+                        <!-- Section Corwokers-->
+  <section id="coworkersContainer" class="container hidden">
+    <h2>Collaborateurs</h2>
+    <ul id="coworkersList">
+    </ul>
+    <div id="coworkerForm">
+      <input type="text" placeholder="Nom" id="lastname"/>
+      <input type="text" placeholder="Prénom" id="firstname"/>
+      <button id="addCoworker">Ajouter un collaborateur</button>
     </div>
-    <div>
-    <span class="tools">
-        <a href="javascript:;" id = "resetTodo">Recharger</a>
-        <a href="javascript:;" id="deleteAll">Supprimer toute la liste</a>
-    </span>
+  </section>
+                        <!--  End Section Corwokers-->
+
+                        <!-- Footers-->
+  <footer class="bg-dark">
+    <div class="social-links">
+      <h5 class="text-light">SOCIAL</h5>
+      <i class="fab fa-facebook-f fa-lg"></i>
+      <i class="fab fa-linkedin-in fa-lg"></i>
+      <i class="fab fa-twitter fa-lg"></i>
+      <i class="fab fa-instagram fa-lg"></i>
     </div>
-  </div>
-  <ul class="todoList">
-    <p class="msg">
-      Tu as tout fait! Ajoutez-en plus.
-    </p>
-  </ul>
-</div>
+    <div class="empty"><p class="text-light">Téléchargez notre application !</p></div>
+  </footer>
 
-<div id="coworkersContainer" class="container hidden">
-  <h2>Collaborateurs</h2>
-  <ul id="coworkersList">
-  </ul>
-  <div id="coworkerForm">
-    <input type="text" placeholder="Nom" id="lastname"/>
-    <input type="text" placeholder="Prénom" id="firstname"/>
-    <button id="addCoworker">Ajouter un collaborateur</button>
-  </div>
-</div>
-
-<footer class="bg-dark">
-  <div class="social-links">
-    <h5 class="text-light">SOCIAL</h5>
-    <i class="fab fa-facebook-f fa-lg"></i>
-    <i class="fab fa-linkedin-in fa-lg"></i>
-    <i class="fab fa-twitter fa-lg"></i>
-    <i class="fab fa-instagram fa-lg"></i>
-  </div>
-  <div class="empty"><p class="text-light">Téléchargez notre application !</p></div>
-</footer>
-
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-<script src="https://kit.fontawesome.com/675a0e17cd.js" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/675a0e17cd.js" crossorigin="anonymous"></script>
 
 </body>
 </html>
