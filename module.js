@@ -155,48 +155,56 @@ function deleteUser() {
     showCoworkers();
 }
 
+// CO-WORKERS PAGE
+
+
+function showCoworkers() {
+    $("#coworkersList").empty();
+    let coworkers_tmp = new Coworker();
+    coworkers_tmp.getAll().then(function (coworker) {
+        coworker.forEach(function (cowork) {
+            $("#coworkersList").append(coworkerItem(cowork.firstname, cowork.lastname, cowork.id));
+        });
+        $(".deleteCoworker").on('click', deleteCoworker);
+    })
+    $("#addCoworker").on('click', addCoworker);
+}
+
+function coworkerItem(firstname, lastname, id) {
+    let innerHTML = "<li id =" + id + " >" + firstname + ' ' + lastname + "<button class='deleteCoworker'>Supprimer</button></li>";
+    return innerHTML;
+}
+
+
+// test OK  
+function addCoworker() {
+    let firstnameInput = $("#firstname").val();
+    let lastnameInput = $("#lastname").val();
+
+    if (firstnameInput == "" || lastnameInput == "") {
+        alert('veuillez mettre les informations du coworkers');
+    }
+    else {
+        let coworker = new Coworker(firstnameInput, lastnameInput, []);
+        coworker.add();
+        showCoworkers();
+    }
+}
+
+
+function deleteCoworker() {
+    let coworker = new Coworker();
+    coworker.delete(this.parentElement.id);
+    showCoworkers();
+}
+
 // Go to co-workers page
 $("#coworkers").on('click', function () {
     $("#todoContainer").addClass("hidden");
     $("#coworkersContainer").removeClass("hidden");
 });
 
-// Show coworkers
-var coworkers = [
-    { id: 1, firstname: "Noémie", lastname: "Foulon" },
-    { id: 2, firstname: "Denis", lastname: "Lemoine" },
-    { id: 3, firstname: "Caroline", lastname: "Fouquet" }
-];
-
-let coworkerItem = function (firstname, lastname, id) {
-    let innerHTML = "<li>" + firstname + ' ' + lastname + "<button class='deleteCoworker' id=" + id + ">Supprimer</button></li>";
-    return innerHTML;
-};
-
-/*function showCoworkers() {
-    $("#coworkersList").empty();
-    coworkers.forEach(function (coworker) {
-        $("#coworkersList").append(coworkerItem(coworker.firstname, coworker.lastname, coworker.todos));
-    });
-}*/
-
-/*showCoworkers();*/
-
-// Add coworker
-$("#addCoworker").on('click', function () {
-    console.log("click");
-});
-
-// Delete coworker
-$(".deleteCoworker").on('click', function () {
-    for (let i = 0; i < coworkers.length; i++) {
-        if (coworkers[i].id === Number($(this).attr('id'))) {
-            console.log('test2');
-            coworkers.splice(i, 1);
-        }
-    }
-    showCoworkers();
-});
+showCoworkers();
 
 // Modified Background
 
