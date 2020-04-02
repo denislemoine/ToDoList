@@ -115,12 +115,15 @@ function showCoworkers() {
             $("#coworkersList").append(coworkerItem(cowork.firstname, cowork.lastname, cowork.id));
         });
         $(".deleteCoworker").on('click', deleteCoworker);
+        $(".editCoworker").on('click', editCoworker);
     })
     $("#addCoworker").on('click', addCoworker);
 }
 
 function coworkerItem(firstname, lastname, id) {
-    let innerHTML = "<li id =" + id + " >" + firstname + ' ' + lastname + "<button class='editCoworker'>Modifier</button><button class='deleteCoworker'>Supprimer</button></li>";
+    let innerHTML = "<li id =" + id + " ><span>"
+    + firstname + "</span> <span>" 
+    + lastname + "</span> <span> <button class='editCoworker'>Modifier</button><button class='deleteCoworker'>Supprimer</button></li>";
     return innerHTML;
 }
 
@@ -144,20 +147,33 @@ function deleteCoworker() {
     showCoworkers();
 }
 
-$("#editCoworker").on('click', editCoworker);
+
 
 function editCoworker(){
-    let firstnameInput = $("#firstname").val();
-    let lastnameInput = $("#lastname").val();
 
-    let coworker = new Coworker();      
-    console.log(coworker);  
-    if (firstnameInput != ""){
-        coworker.update("firstname :", this.parentElement.value);
-    }else if (lastnameInput != ""){
-        coworker.update("lasttname :", this.parentElement.value);
-    }
-    showCoworkers();
+    let idLi = this.parentElement.id;
+
+    let coworker = new Coworker();
+    coworker.getOne(idLi).then(function(value){
+        console.log(value.firstname);
+        $("#"+ idli + "").span.hide();
+        // $("#"+ idLi +"").append("<span>"
+        // + firstname + "</span> <span>" 
+        // + lastname + "</span> <span>"
+        // + "<input type='text' id='lastname' placeholder = 'nom' value = "
+        // + value.firstname + "<button class='editCoworker'>Modifier</button>"
+        // + "<button class='deleteCoworker'>Supprimer</button></li>");
+    })    
+  
+
+          
+    // console.log(coworker);  
+    // if (firstnameInput != ""){
+    //     coworker.update("firstname :", this.parentElement.value);
+    // }else if (lastnameInput != ""){
+    //     coworker.update("lasttname :", this.parentElement.value);
+    // }
+    // showCoworkers();
 }
 
 // Modified Background
