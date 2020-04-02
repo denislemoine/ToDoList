@@ -97,7 +97,7 @@ var refreshBrowser = function () {
 function initDragAndDrop() {
     $(".todoList").sortable({
         connectWith: ".todoList",
-        stop: function(event, ui) {
+        update: function(event, ui) {
             let todoTmp = new Todo;
             if(this.id === "todoColumn") {
                 var newStatus = 0;
