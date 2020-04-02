@@ -151,12 +151,12 @@ function deleteCoworker() {
 
 function editCoworker(){
 
-    let idLi = this.parentElement.id;
+    let idLi = span.parentElement.id;
 
     let coworker = new Coworker();
     coworker.getOne(idLi).then(function(value){
-        console.log(value.firstname);
-        $("#"+ idli + "").span.hide();
+        console.log(value);
+      //  $("#"+ idli + "").span.hiden();
         // $("#"+ idLi +"").append("<span>"
         // + firstname + "</span> <span>" 
         // + lastname + "</span> <span>"
