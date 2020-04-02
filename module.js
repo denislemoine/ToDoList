@@ -9,6 +9,7 @@ function goToCoworkers() {
 
 // TODOS PAGE
 initColumn();
+initDragAndDrop();
 $("#todoAdd").on('click', addTodo);
 $("#deleteAll").on('click', deleteAllTodos);
 
@@ -89,52 +90,25 @@ function createItem(text, id, checked, coworker, property) {
     return innerHtml;
 }
 
-function toggleTodo() {
-    let todo = new Todo;
-    if (this.checked) {
-        todo.updateStatus(this.parentElement.id, 2);
-    } else {
-        todo.updateStatus(this.parentElement.id, 0);
-    }
-    initColumn();
-}
-
 var refreshBrowser = function () {
     location = location;
 };
 
-// CO-WORKERS PAGE
-$("#addCoworker").on('click', function () {
-    console.log("click");
-});
-
-/*function showCoworkers() {
-    $("#all").empty();
-    let coworker_tmp = new userClass;
-    coworker_tmp.getAll().then(function (users) {
-        users.forEach(function (user) {
-            $("#all").append(createItem(user.firstname, user.lastname, user.todos))
-        });
-        $("#addCoworker").on('click', addUser);
-        $("#deleteCoworker").on('click', deleteUser);
+function initDragAndDrop() {
+    $(".todoList").sortable({
+        connectWith: ".todoList",
+        stop: function(event, ui) {
+            let todoTmp = new Todo;
+            if(this.id === "todoColumn") {
+                var newStatus = 0;
+            } else if(this.id === "ongoingColumn") {
+                var newStatus = 1;
+            } else if(this.id === "finishedColumn") {
+                var newStatus = 2;
+            }
+            todoTmp.updateStatus(ui.item[0].id, newStatus);
+        }
     });
-}*/
-
-function addUser() {
-    /* $("#addCoworker").click( function () {
-         console.log("click");*/
-    let firstnameInput = $("#firstname").val();
-    let lastnameInput = $("#lastname").val();
-    let user = new userClass(firstnameInput, lastnameInput, []);
-    user.add();
-    //});
-    showCoworkers();
-}
-
-function deleteUser() {
-    let user = new userClass();
-    user.delete(this.parentElement.id);
-    showCoworkers();
 }
 
 

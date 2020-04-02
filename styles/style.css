@@ -44,6 +44,7 @@ body{
 
 .todoList{
     padding: 5px 0 0;
+    min-height: 200px;
 }
 
 .todoList p.msg{
@@ -185,7 +186,7 @@ div.column {
 	margin: 0px;
 	padding: 16px;
 	background: #ddd;
-	min-width: 200px;
+	width: 500px;
 	border-radius: 10px
 }
 
