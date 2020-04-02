@@ -12,7 +12,6 @@ class Todo {
                 name: todo.name,
                 description: todo.description,
                 status: todo.status,
-                coworker: todo.coworker
             }
         }, fromFirestore: function (snapshot, options) {
             const data = snapshot.data(options);
@@ -73,6 +72,7 @@ class Todo {
     }
 
     add() {
+        console.log(this);
         db.collection("todos").withConverter(this.todoConverter).add(this).then(function (docRef) {
             console.log("Document written with ID: ", docRef.id);
         }).catch(function (error) {
