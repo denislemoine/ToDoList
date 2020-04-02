@@ -1,12 +1,12 @@
 //Class User
-var userClass = class {
+class Coworker {
     constructor(firstname, lastname, todos) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.todos = todos;
     }
 
-    userConverter = {
+    coworkerConverter = {
         toFirestore: function (users) {
             return {
                 firstname: users.firstname,
@@ -22,7 +22,7 @@ var userClass = class {
 
     getAll() {
         let userArray = [];
-        return db.collection("users").withConverter(this.userConverter).get().then((querySnapshot) => {
+        return db.collection("users").withConverter(this.coworkerConverter).get().then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
 
                 let mydata = doc.data();
@@ -34,11 +34,11 @@ var userClass = class {
     }
 
     getOne(id) {
-        return db.collection("users").doc(id).withConverter(this.userConverter).get().then(function (doc) {
+        return db.collection("users").doc(id).withConverter(this.coworkerConverter).get().then(function (doc) {
             if (doc.exists) {
-                let coworker = doc.data();
-                coworker.id = id;
-                return coworker;
+                let coworkerData = doc.data();
+                coworkerData.id = id;
+                return coworkerData;
             } else {
                 console.log("This coworker does not exist")
             }
@@ -60,7 +60,7 @@ var userClass = class {
               console.error("Error adding document: ", error);
       });*/
 
-        db.collection("users").withConverter(this.userConverter).add(this).then(function (docRef) {
+        db.collection("users").withConverter(this.coworkerConverter).add(this).then(function (docRef) {
             console.log("Coworker written with ID: ", docRef.id);
         }).catch(function (error) {
             console.error("Error adding coworker: ", error);
