@@ -181,7 +181,7 @@ function addCoworker() {
     let firstnameInput = $("#firstname").val();
     let lastnameInput = $("#lastname").val();
 
-    if (firstnameInput == "" || lastnameInput == "") {
+    if (firstnameInput === "" || lastnameInput === "") {
         alert('veuillez mettre les informations du coworkers');
     }
     else {
