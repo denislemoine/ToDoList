@@ -1,5 +1,12 @@
-// TODOS PAGE
+// MENU
+$("#coworkersLink").on('click', goToCoworkers);
 
+function goToCoworkers() {
+    $("#todoContainer").addClass("hidden");
+    $("#coworkersContainer").removeClass("hidden");
+}
+
+// TODOS PAGE
 initColumn();
 $("#todoAdd").on('click', addTodo);
 $("#deleteAll").on('click', deleteAllTodos);
@@ -199,10 +206,6 @@ function deleteCoworker() {
 }
 
 // Go to co-workers page
-$("#coworkers").on('click', function () {
-    $("#todoContainer").addClass("hidden");
-    $("#coworkersContainer").removeClass("hidden");
-});
 
 showCoworkers();
 
