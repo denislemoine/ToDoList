@@ -1,9 +1,8 @@
 //Class User
 class Coworker {
-    constructor(firstname, lastname, todos) {
+    constructor(firstname, lastname) {
         this.firstname = firstname;
         this.lastname = lastname;
-        this.todos = todos;
     }
 
     coworkerConverter = {
@@ -11,11 +10,10 @@ class Coworker {
             return {
                 firstname: users.firstname,
                 lastname: users.lastname,
-                todos: users.todos
             }
         }, fromFirestore: function (snapshot, options) {
             const data = snapshot.data(options);
-            return new Coworker(data.firstname, data.lastname, data.todos);
+            return new Coworker(data.firstname, data.lastname);
         }
     };
 
@@ -48,27 +46,15 @@ class Coworker {
     }
 
     add() {
-      /*  db.collection("users").add({
-             firstname: this.firstname,
-             lastname: this.lastname
-            // todos: this.todos
-         })
-         .then(function(docRef) {
-             console.log("Document written with ID: ", docRef.id);
-          })
-          .catch(function(error) {
-              console.error("Error adding document: ", error);
-      });*/
-
-        db.collection("users").withConverter(this.coworkerConverter).add(this).then(function (docRef) {
+         db.collection("users").withConverter(this.coworkerConverter).add(this).then(function (docRef) {
             console.log("Coworker written with ID: ", docRef.id);
         }).catch(function (error) {
             console.error("Error adding coworker: ", error);
         });
     }
 
-    delete() {
-        db.collection("users").doc(this.id).delete().then(function () {
+    delete(id) {
+        db.collection("users").doc(id).delete().then(function () {
             console.log("Coworker successfully deleted");
         }).catch(function (error) {
             console.error("Error removing coworker: ", error);
@@ -83,15 +69,5 @@ class Coworker {
         });
     }
 
-    getByTodos(todos) {
-        let todosArray = [];
-        return db.collection("todos").where("todos", "==", todos).withConverter(this.todoConverter).get().then(function (querySnapshot) {
-            querySnapshot.forEach(function (doc) {
-                let todo = doc.data();
-                todo.id = doc.id;
-                todosArray.push(todo);
-            });
-            return todosArray;
-        })
-    }
 }
+
