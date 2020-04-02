@@ -22,9 +22,11 @@ class Todo {
         let todoArray = [];
         return db.collection("todos").withConverter(this.todoConverter).get().then(function (querySnapshot) {
             querySnapshot.forEach(function (doc) {
-                let todo = doc.data();
-                todo.id = doc.id;
-                todoArray.push(todo);
+                if (doc.id !== "default") {
+                    let todo = doc.data();
+                    todo.id = doc.id;
+                    todoArray.push(todo);
+                }
             });
             return todoArray;
         })
@@ -64,17 +66,17 @@ class Todo {
         });
     }
 
-    delete() {
-        db.collection("todos").doc(this.id).delete().then(function () {
+    delete(id) {
+        db.collection("todos").doc(id).delete().then(function () {
             console.log("Document successfully deleted");
         }).catch(function (error) {
             console.error("Error removing document: ", error);
         });
     }
 
-    update(field, value) {
-        db.collection("todos").doc(this.id).update({field: value}).then(function () {
-            console.log("Document successfully updated");
+    updateStatus(id, value) {
+        db.collection("todos").doc(id).update({status: value}).then(function () {
+            console.log("Status successfully updated to " + value);
         }).catch(function (error) {
             console.log("Error updating document: ", error);
         });
