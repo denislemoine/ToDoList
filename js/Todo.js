@@ -1,8 +1,9 @@
 class Todo {
-    constructor(name, description, status) {
+    constructor(name, description, status, coworker) {
         this.name = name;
         this.description = description;
         this.status = status;
+        this.coworker = coworker;
     }
 
     todoConverter = {
@@ -10,11 +11,12 @@ class Todo {
             return {
                 name: todo.name,
                 description: todo.description,
-                status: todo.status
+                status: todo.status,
+                coworker: todo.coworker
             }
         }, fromFirestore: function (snapshot, options) {
             const data = snapshot.data(options);
-            return new Todo(data.name, data.description, data.status);
+            return new Todo(data.name, data.description, data.status, data.coworker);
         }
     };
 
@@ -43,6 +45,18 @@ class Todo {
             return todoArray;
         })
     }
+
+    getByCoworker(coworker_id) {
+        let todoArray = [];
+        return db.collection("todos").where("coworker", "==", coworker_id).withConverter(this.todoConverter).get().then(function (querySnapshot) {
+            querySnapshot.forEach(function (doc) {
+                let todo = doc.data();
+                todo.id = doc.id;
+                todoArray.push(todo);
+            });
+            return todoArray;
+        })
+    };
 
     getOne(id) {
         return db.collection("todos").doc(id).withConverter(this.todoConverter).get().then(function (doc) {
@@ -76,6 +90,14 @@ class Todo {
 
     updateStatus(id, value) {
         db.collection("todos").doc(id).update({status: value}).then(function () {
+            console.log("Status successfully updated to " + value);
+        }).catch(function (error) {
+            console.log("Error updating document: ", error);
+        });
+    }
+
+    updateCoworker(id, coworker_id) {
+        db.collection("todos").doc(id).update({coworker: coworker_id}).then(function () {
             console.log("Status successfully updated to " + value);
         }).catch(function (error) {
             console.log("Error updating document: ", error);

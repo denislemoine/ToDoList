@@ -14,7 +14,15 @@ function showTodos() {
             } else {
                 var checked = false;
             }
-            $("#all").append(createItem(todo.name, todo.id, checked))
+            if (todo.coworker) {
+                let coworkerTmp = new Coworker;
+                coworkerTmp.getOne(todo.coworker).then(function (coworker) {
+                    var coworkerName = coworker.firstname + ' ' + coworker.lastname;
+                    $("#all").append(createItem(todo.name, todo.id, checked, coworkerName));
+                })
+            } else {
+                $("#all").append(createItem(todo.name, todo.id, checked));
+            }
         });
         $(".deleteTodo").on('click', deleteTodo);
         $(".status").on('click', toggleTodo);
@@ -50,10 +58,11 @@ function deleteAllTodos(){
     showTodos()
 }
 
-function createItem(text, id, checked){
+function createItem(text, id, checked, coworker){
     let innerHtml = '<li id=' +  id + (checked ? ' class="done"' : "") + '>'
         + '<input type="checkbox" class="status"' + (checked? 'checked': '' )+ '/>'
         + '<span>' + text + '</span>'
+        + '<span class="assigned">' + coworker + '</span>'
         + '<button class="deleteTodo">delete</button>'
         + '</li>';
     return innerHtml;
@@ -78,7 +87,7 @@ $("#addCoworker").on('click', function () {
     console.log("click");
 });
 
-function showCoworkers() {
+/*function showCoworkers() {
     $("#all").empty();
     let coworker_tmp = new userClass;
     coworker_tmp.getAll().then(function (users) {
@@ -88,7 +97,7 @@ function showCoworkers() {
         $("#addCoworker").on('click', addUser);
         $("#deleteCoworker").on('click', deleteUser);
     });
-}
+}*/
 
 function addUser() {
     /* $("#addCoworker").click( function () {
@@ -125,14 +134,14 @@ let coworkerItem = function (firstname, lastname, id) {
     return innerHTML;
 };
 
-function showCoworkers() {
+/*function showCoworkers() {
     $("#coworkersList").empty();
     coworkers.forEach(function (coworker) {
         $("#coworkersList").append(coworkerItem(coworker.firstname, coworker.lastname, coworker.todos));
     });
-}
+}*/
 
-showCoworkers();
+/*showCoworkers();*/
 
 // Add coworker
 $("#addCoworker").on('click', function () {

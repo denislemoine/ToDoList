@@ -15,7 +15,7 @@ class Coworker {
             }
         }, fromFirestore: function (snapshot, options) {
             const data = snapshot.data(options);
-            return new userClass(data.firstname, data.lastname, data.todos);
+            return new Coworker(data.firstname, data.lastname, data.todos);
         }
     };
 

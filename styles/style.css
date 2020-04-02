@@ -76,6 +76,10 @@ body{
     float: right;
 }
 
+.assigned {
+    float: right;
+}
+
 .todoList li span{
     margin-left: 10px;
 }
