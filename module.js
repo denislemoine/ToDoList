@@ -41,13 +41,15 @@ function showTodos(column, status) {
                 coworkerTmp.getOne(todo.coworker).then(function (coworker) {
                     var coworkerName = coworker.firstname + ' ' + coworker.lastname;
                     $(column).append(createItem(todo.name, todo.id, checked, coworkerName, status));
+                    $(".deleteTodo").off('click');
+                    $(".deleteTodo").on('click', deleteTodo);
                 })
             } else {
                 $(column).append(createItem(todo.name, todo.id, checked));
+                $(".deleteTodo").off('click');
+                $(".deleteTodo").on('click', deleteTodo);
             }
         });
-        $(".deleteTodo").off('click');
-        $(".deleteTodo").on('click', deleteTodo);
     });
 }
 
