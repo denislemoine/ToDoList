@@ -68,7 +68,11 @@ body{
     background: #f9fbfe;
 }
 
-.todoList .delete{
+.deleteTodo {
+    float: right;
+}
+
+.assigned {
     float: right;
 }
 

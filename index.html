@@ -4,6 +4,11 @@
   <meta charset="UTF-8">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <link rel="stylesheet" href="styles/style.css">
+  <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-firestore.js"></script>
+  <script src="js/bdd.js"></script>
+  <script src="js/Todo.js"></script>
+  <script src="js/coworker.js"></script>
   <script type="module" src="module.js"></script>
   <title>Ma To Do List</title>
 </head>
@@ -76,8 +81,12 @@
       </div>
     </div>
   </div>
-</section>
-                        <!-- End List ToDoList -->
+  <ul class="todoList" id="all">
+    <p class="msg">
+      Tu as tout fait! Ajoutez-en plus.
+    </p>
+  </ul>
+</div>
 
                         <!-- Section Corwokers-->
   <section id="coworkersContainer" class="container hidden">
@@ -92,22 +101,18 @@
   </section>
                         <!--  End Section Corwokers-->
 
-                        <!-- Footers-->
-  <footer class="bg-dark">
-    <div class="social-links">
-      <h5 class="text-light">SOCIAL</h5>
-      <i class="fab fa-facebook-f fa-lg"></i>
-      <i class="fab fa-linkedin-in fa-lg"></i>
-      <i class="fab fa-twitter fa-lg"></i>
-      <i class="fab fa-instagram fa-lg"></i>
-    </div>
-    <div class="empty"><p class="text-light">Téléchargez notre application !</p></div>
-  </footer>
+<footer class="bg-dark">
+  <div class="social-links">
+    <h5 class="text-light">SOCIAL</h5>
+    <div class="addthis_inline_share_toolbox"></div>
+  </div>
+  <div class="empty"><p class="text-light">Téléchargez notre application !</p></div>
+</footer>
 
-  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-  <script src="https://kit.fontawesome.com/675a0e17cd.js" crossorigin="anonymous"></script>
-
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/675a0e17cd.js" crossorigin="anonymous"></script>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5e85b005d7128674"></script>
 </body>
 </html>
