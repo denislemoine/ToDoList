@@ -211,7 +211,7 @@ $("#search").on("keyup", search);
 function search() {
 
     var value = $(this).val().toLowerCase();
-     $("li span").filter(function () {
+     $("li").filter(function () {
         $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
     });
 }
