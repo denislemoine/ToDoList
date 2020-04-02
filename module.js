@@ -52,7 +52,7 @@ function showTodos(column, status) {
 
 function addTodo() {
     var input = $("#todoInput");
-    if(input.val()) {
+    if (input.val()) {
         let todo = new Todo(input.val(), "", 0);
         todo.add();
     }
@@ -66,9 +66,9 @@ function deleteTodo() {
     initColumn();
 }
 
-function deleteAllTodos(){
+function deleteAllTodos() {
     var sureDelete = confirm("Êtes-vous sûr de vouloir supprimer toute la liste ?");
-    if(sureDelete){
+    if (sureDelete) {
         let todo_tmp = new Todo;
         todo_tmp.getAll().then(function (todos) {
             todos.forEach(function (todo) {
@@ -79,8 +79,8 @@ function deleteAllTodos(){
     initColumn();
 }
 
-function createItem(text, id, checked, coworker, property){
-    let innerHtml = '<li id=' +  id + ' class="card" property="' + property
+function createItem(text, id, checked, coworker, property) {
+    let innerHtml = '<li id=' + id + ' class="card" property="' + property
         + '" mv-multiple mv-accepts="todo in_progress completed">'
         + '<span>' + text + '</span>'
         + '<span class="assigned">' + coworker + '</span>'
@@ -89,9 +89,9 @@ function createItem(text, id, checked, coworker, property){
     return innerHtml;
 }
 
-function toggleTodo(){
+function toggleTodo() {
     let todo = new Todo;
-    if(this.checked) {
+    if (this.checked) {
         todo.updateStatus(this.parentElement.id, 2);
     } else {
         todo.updateStatus(this.parentElement.id, 0);
@@ -99,7 +99,7 @@ function toggleTodo(){
     initColumn();
 }
 
-var refreshBrowser = function(){
+var refreshBrowser = function () {
     location = location;
 };
 
@@ -183,21 +183,37 @@ function deleteCoworker() {
 
 // Modified Background
 
-$(document).ready(function(){
-    $("a.one").click( function(){
-        $ ("body").removeClass('bg2 , bg3').addClass("bg1");
+$(document).ready(function () {
+    $("a.one").click(function () {
+        $("body").removeClass('bg2 , bg3').addClass("bg1");
     });
-    $("a.two").click( function(){
-        $ ("body").removeClass("bg1 , bg3").addClass("bg2");
-     });
-     $("a.three").click( function(){
-         $ ("body").removeClass("bg1 , bg2").addClass("bg3");
-        });
+    $("a.two").click(function () {
+        $("body").removeClass("bg1 , bg3").addClass("bg2");
+    });
+    $("a.three").click(function () {
+        $("body").removeClass("bg1 , bg2").addClass("bg3");
+    });
 });
 
 // dropdown menu
-$('li.dropdown').hover(function() {
+$('li.dropdown').hover(function () {
     $(this).find('.dropdown-menu').stop(true, true).delay(300).fadeIn(500);
-  }, function() {
+}, function () {
     $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeOut(500);
-  });
+});
+
+
+//Search function
+
+
+$("#search").on("keyup", search);
+
+function search() {
+
+    var value = $(this).val().toLowerCase();
+     $("li span").filter(function () {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+}
+
+
