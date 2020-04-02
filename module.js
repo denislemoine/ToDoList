@@ -27,7 +27,7 @@ function addTodo() {
         let todo = new Todo(input.val(), "", 0);
         todo.add();
     }
-    input.val();
+    input.val("");
     showTodos()
 }
 
