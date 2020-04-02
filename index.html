@@ -55,7 +55,7 @@
           </span>
         </div>
           <h2 class="title">Todo à Faire</h2>
-        <ul class="todoList">
+        <ul class="todoList" id="todoColumn">
           <p class="msg">
             Tu as tout fait! Ajoutez-en plus.
           </p>
@@ -66,7 +66,7 @@
           <h2 class="title">En cours</h2>
           <li class="card" property="in_progress" mv-multiple mv-accepts="todo in_progress completed">
             <p property="title">In progress 1</p>
-            <ul class="tasks-list">
+            <ul class="tasks-list" id="ongoingColumn">
               <li class="task" mv-multiple="task" mv-initial-items="0">
                 <input type="checkbox" property="done"/>
                 <span property="task_name"></span>
@@ -76,7 +76,7 @@
         </div>
         <div class="column">
           <h2 class="title">Terminé</h2>
-          <ul>
+          <ul id="finishedColumn">
           <li class="card" property="completed" mv-multiple  mv-accepts="todo in_progress completed">Completed 1</li>
           </ul>
         </div>

@@ -1,16 +1,29 @@
 // TODOS PAGE
 
-showTodos();
+initColumn();
 $("#todoAdd").on('click', addTodo);
 $("#deleteAll").on('click', deleteAllTodos);
 
-function showTodos() {
-    $("#all").empty();
+function initColumn() {
+    showTodos("#todoColumn", 0);
+    showTodos("#ongoingColumn", 1);
+    showTodos("#finishedColumn", 2);
+}
+
+function showTodos(column, status) {
+    $(column).empty();
     let todo_tmp = new Todo;
-    todo_tmp.getAll().then(function (todos) {
+    todo_tmp.getByStatus(status).then(function (todos) {
         todos.forEach(function (todo) {
+            if (todo.status === 0) {
+                var status = "todo";
+            }
+            if (todo.status === 1) {
+                var status = "in_progress";
+            }
             if (todo.status === 2) {
                 var checked = true;
+                var status = "completed";
             } else {
                 var checked = false;
             }
@@ -18,10 +31,10 @@ function showTodos() {
                 let coworkerTmp = new Coworker;
                 coworkerTmp.getOne(todo.coworker).then(function (coworker) {
                     var coworkerName = coworker.firstname + ' ' + coworker.lastname;
-                    $("#all").append(createItem(todo.name, todo.id, checked, coworkerName));
+                    $(column).append(createItem(todo.name, todo.id, checked, coworkerName, status));
                 })
             } else {
-                $("#all").append(createItem(todo.name, todo.id, checked));
+                $(column).append(createItem(todo.name, todo.id, checked));
             }
         });
         $(".deleteTodo").on('click', deleteTodo);
@@ -36,13 +49,13 @@ function addTodo() {
         todo.add();
     }
     input.val("");
-    showTodos()
+    initColumn();
 }
 
 function deleteTodo() {
     let todo = new Todo();
     todo.delete(this.parentElement.id);
-    showTodos();
+    initColumn();
 }
 
 function deleteAllTodos(){
@@ -55,12 +68,12 @@ function deleteAllTodos(){
             })
         })
     }
-    showTodos()
+    initColumn();
 }
 
-function createItem(text, id, checked, coworker){
-    let innerHtml = '<li id=' +  id + (checked ? ' class="done"' : "") + '>'
-        + '<input type="checkbox" class="status"' + (checked? 'checked': '' )+ '/>'
+function createItem(text, id, checked, coworker, property){
+    let innerHtml = '<li id=' +  id + ' class="card" property="' + property
+        + '" mv-multiple mv-accepts="todo in_progress completed">'
         + '<span>' + text + '</span>'
         + '<span class="assigned">' + coworker + '</span>'
         + '<button class="deleteTodo">delete</button>'
@@ -75,7 +88,7 @@ function toggleTodo(){
     } else {
         todo.updateStatus(this.parentElement.id, 0);
     }
-    showTodos();
+    initColumn();
 }
 
 var refreshBrowser = function(){
@@ -86,7 +99,7 @@ $(".todoList").on('click', "li", toggleTodo)
 $(".todoList").on('click', ".delete", function(){
    $(this).closest('li').remove();
    updateStats();
-})
+});
 
 // Add list
 $("#todoAdd").on('click',function(){
@@ -187,16 +200,16 @@ $(".deleteCoworker").on('click', function () {
 
 // Modified Background
 
-$(document).ready(function(){ 
-    $("a.one").click( function(){ 
-        $ ("body").removeClass('bg2 , bg3').addClass("bg1"); 
-    }); 
-    $("a.two").click( function(){ 
+$(document).ready(function(){
+    $("a.one").click( function(){
+        $ ("body").removeClass('bg2 , bg3').addClass("bg1");
+    });
+    $("a.two").click( function(){
         $ ("body").removeClass("bg1 , bg3").addClass("bg2");
-     }); 
-     $("a.three").click( function(){ 
-         $ ("body").removeClass("bg1 , bg2").addClass("bg3"); 
-        }); 
+     });
+     $("a.three").click( function(){
+         $ ("body").removeClass("bg1 , bg2").addClass("bg3");
+        });
 });
 
 // dropdown menu
@@ -204,5 +217,4 @@ $('li.dropdown').hover(function() {
     $(this).find('.dropdown-menu').stop(true, true).delay(300).fadeIn(500);
   }, function() {
     $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeOut(500);
-  });
-
+  })});
