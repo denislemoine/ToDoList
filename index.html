@@ -43,7 +43,7 @@
   <div class="app" mv-app="appName" mv-storage="local">
     <div class="board" property="board" mv-multiple>   
       <div class="board-container">
-        <ul class="column">
+        <div class="column">
           <div id ="root" class="todoForm">
             <input type="text" placeholder="Ajouter une nouvelle tâche" id="todoInput"/>
             <a href="javascript:" id="todoAdd" class="button">Ajouter</a>
@@ -54,16 +54,16 @@
               <a href="javascript:;" id="deleteAll">Supprimer toute la liste</a>
           </span>
         </div>
+          <h2 class="title">Todo à Faire</h2>
         <ul class="todoList">
           <p class="msg">
             Tu as tout fait! Ajoutez-en plus.
-          </p>  
-        </ul>
-          <li class="title">Todo à Faire</li>
+          </p>
           <li class="card" property="todo" mv-multiple mv-accepts="todo in_progress completed">Todo 1</li>
         </ul>
-        <ul class="column">
-          <li class="title">En cours</li>
+        </div>
+        <div class="column">
+          <h2 class="title">En cours</h2>
           <li class="card" property="in_progress" mv-multiple mv-accepts="todo in_progress completed">
             <p property="title">In progress 1</p>
             <ul class="tasks-list">
@@ -73,20 +73,17 @@
               </li>
             </ul>
           </li>
-        </ul>
-        <ul class="column">
-          <li class="title">Terminer</li>
+        </div>
+        <div class="column">
+          <h2 class="title">Terminé</h2>
+          <ul>
           <li class="card" property="completed" mv-multiple  mv-accepts="todo in_progress completed">Completed 1</li>
-        </ul>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
-  <ul class="todoList" id="all">
-    <p class="msg">
-      Tu as tout fait! Ajoutez-en plus.
-    </p>
-  </ul>
-</div>
+  </section>
 
                         <!-- Section Corwokers-->
   <section id="coworkersContainer" class="container hidden">
