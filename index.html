@@ -9,10 +9,6 @@
   <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-firestore.js"></script>
-  <script src="js/bdd.js"></script>
-  <script src="js/Todo.js"></script>
-  <script src="js/coworker.js"></script>
-  <script type="module" src="module.js"></script>
   <title>Ma To Do List</title>
 </head>
 <body>
@@ -50,12 +46,12 @@
           <h2 class="title">A faire</h2>
           <div>
           <span class="tools">
-              <a href="javascript:" id="deleteAll">Supprimer toute la liste</a>
+              <a href="#" id="deleteAll">Supprimer toute la liste</a>
           </span>
           </div>
           <div id ="root" class="todoForm">
             <input type="text" placeholder="Ajouter une nouvelle tâche" id="todoInput"/>
-            <a href="javascript:" id="todoAdd" class="button">Ajouter</a>
+            <button type="button" id="todoAdd" class="btn btn-info"><i class="fas fa-plus"></i></button>
           </div>
         <ul class="todoList" id="todoColumn">
           <p class="msg">
@@ -65,7 +61,7 @@
         </div>
         <div class="column">
           <h2 class="title">En cours</h2>
-            <ul class="todoList tasks-list" id="ongoingColumn">
+            <ul class="todoList" id="ongoingColumn">
                 <input type="checkbox" property="done"/>
                 <span property="task_name"></span>
             </ul>
@@ -105,8 +101,11 @@
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 <script src="https://kit.fontawesome.com/675a0e17cd.js" crossorigin="anonymous"></script>
+<script src="js/bdd.js"></script>
+<script src="js/Todo.js"></script>
+<script src="js/Coworker.js"></script>
+<script src="js/controller.js"></script>
 <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5e85b005d7128674"></script>
 </body>
 </html>

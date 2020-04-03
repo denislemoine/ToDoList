@@ -1,4 +1,3 @@
-//Class User
 class Coworker {
     constructor(firstname, lastname) {
         this.firstname = firstname;
@@ -16,7 +15,6 @@ class Coworker {
             return new Coworker(data.firstname, data.lastname);
         }
     };
-
 
     getAll() {
         let userArray = [];
@@ -69,6 +67,5 @@ class Coworker {
             console.log("Error updating Coworker: ", error);
         });
     }
-
 }
 

@@ -39,6 +39,7 @@ function showTodos(column, status) {
             if (todo.coworker) {
                 let coworkerTmp = new Coworker;
                 coworkerTmp.getOne(todo.coworker).then(function (coworker) {
+                    console.log(coworker);
                     var coworkerName = coworker.firstname + ' ' + coworker.lastname;
                     $(column).append(createItem(todo.name, todo.id, checked, coworkerName, status));
                     $(".deleteTodo").off('click');
@@ -69,7 +70,7 @@ function addTodo() {
 
 function deleteTodo() {
     let todo = new Todo();
-    todo.delete(this.parentElement.id);
+    todo.delete(this.parentElement.parentElement.parentElement.id);
     initColumn();
 }
 
@@ -92,17 +93,17 @@ function createItem(text, id, checked, coworker, property) {
     }
     let innerHtml = '<li id=' + id + ' class="card" property="' + property
         + '" mv-multiple mv-accepts="todo in_progress completed">'
-        + '<span>' + text + '</span>'
-        + '<span class="assigned">' + coworker + '</span>'
-        + '<button class="deleteTodo">delete</button>'
-        + '<button class="assignCoworker">Assigner</button>'
+        + '<div class="todoInfos">'
+        + '<span class="card-zone">' + text + '</span>'
+        + '<span class="assigned card-zone">' + coworker + '</span>'
+        + '<div class="btn-group">'
+        + '<button type="button" class="assignCoworker btn btn-info"><i class="fa fa-user"></i></button>'
+        + '<button type="button" class="deleteTodo btn btn-danger"><i class="fas fa-trash-alt"></i></button>'
+        + '</div>'
+        + '</div>'
         + '</li>';
     return innerHtml;
 }
-
-var refreshBrowser = function () {
-    location = location;
-};
 
 function initDragAndDrop() {
     $(".todoList").sortable({
@@ -123,7 +124,7 @@ function initDragAndDrop() {
 
 function showAssignForm() {
     $(this).off('click');
-    let id = this.parentElement.id;
+    let id = this.parentElement.parentElement.parentElement.id;
     let coworkerTmp = new Coworker;
     coworkerTmp.getAll().then(function (coworkers) {
         let optionsList = [];
@@ -131,10 +132,10 @@ function showAssignForm() {
             let option = '<option value="' + coworker.id + '">' + coworker.firstname + ' ' + coworker.lastname + '</option>';
             optionsList.push(option)
         });
-        let select = '<select class="coworkerChoice">' + optionsList.join("") + '</select>';
+        let select = '<select class="coworkerChoice form-control">' + optionsList.join("") + '</select>';
         $('#' + id).append(select);
-        $('#' + id + ' button.assignCoworker').on('click', function () {
-            $(this).parent().find("select").remove();
+        $('#' + id).find(".assignCoworker").on('click', function () {
+            $(this).parent().parent().parent().find("select").remove();
             $(this).off('click');
             $(this).on('click', showAssignForm);
         });
@@ -168,17 +169,15 @@ function coworkerItem(firstname, lastname, id) {
     return innerHTML;
 }
 
-
-// test OK  
 function addCoworker() {
     let firstnameInput = $("#firstname").val();
     let lastnameInput = $("#lastname").val();
 
     if (firstnameInput === "" || lastnameInput === "") {
-        alert('veuillez mettre les informations du coworkers');
+        alert('Veuillez remplir tous les champs');
     }
     else {
-        let coworker = new Coworker(firstnameInput, lastnameInput, []);
+        let coworker = new Coworker(firstnameInput, lastnameInput);
         coworker.add();
         showCoworkers();
     }
@@ -191,8 +190,8 @@ function deleteCoworker() {
     showCoworkers();
 }
 
-// Modified Background
 
+// Modified Background
 $(document).ready(function () {
     $("a.one").click(function () {
         $("body").removeClass('bg2 , bg3').addClass("bg1");
@@ -210,9 +209,7 @@ $('li.dropdown').hover(function () {
 });
 
 
-//Search function
-
-
+// Search
 $("#search").on("keyup", search);
 
 function search() {
