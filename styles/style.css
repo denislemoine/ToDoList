@@ -226,4 +226,31 @@ li.task > input[type=checkbox]:checked + span {
 footer{
     position: absolute; bottom: 0; left: 0; right: 0;
 }
-  
+
+/* COWORKERS PAGE */
+
+#cw {
+    display: flex;
+    width: auto;
+    justify-content: center;
+    padding-top: 10px;
+}
+
+#coworkersColumn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#coworkersList {
+    padding: 0;
+}
+
+#coworkersColumn li {
+    width: 480px;
+    height: 50px;
+}
+
+.deleteCoworker {
+    float: right;
+}

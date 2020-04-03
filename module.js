@@ -164,7 +164,7 @@ function showCoworkers() {
 }
 
 function coworkerItem(firstname, lastname, id) {
-    let innerHTML = "<li id =" + id + " >" + firstname + ' ' + lastname + "<button class='deleteCoworker'>Supprimer</button></li>";
+    let innerHTML = "<li id =" + id + " >" + firstname + ' ' + lastname + "<button type='button' class='deleteCoworker btn btn-danger'><i class='fas fa-trash-alt'></i></button></li>";
     return innerHTML;
 }
 
