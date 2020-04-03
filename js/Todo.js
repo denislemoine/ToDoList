@@ -98,7 +98,7 @@ class Todo {
 
     updateCoworker(id, coworker_id) {
         db.collection("todos").doc(id).update({coworker: coworker_id}).then(function () {
-            console.log("Status successfully updated to " + value);
+            console.log("Status successfully updated to " + coworker_id);
         }).catch(function (error) {
             console.log("Error updating document: ", error);
         });

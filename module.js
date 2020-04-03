@@ -43,14 +43,18 @@ function showTodos(column, status) {
                     $(column).append(createItem(todo.name, todo.id, checked, coworkerName, status));
                     $(".deleteTodo").off('click');
                     $(".deleteTodo").on('click', deleteTodo);
+                    $(".assignCoworker").off('click');
+                    $(".assignCoworker").on('click', showAssignForm);
                 })
             } else {
                 $(column).append(createItem(todo.name, todo.id, checked));
                 $(".deleteTodo").off('click');
                 $(".deleteTodo").on('click', deleteTodo);
+                $(".assignCoworker").off('click');
+                $(".assignCoworker").on('click', showAssignForm);
             }
         });
-    });
+    })
 }
 
 function addTodo() {
@@ -83,11 +87,15 @@ function deleteAllTodos() {
 }
 
 function createItem(text, id, checked, coworker, property) {
+    if(!coworker) {
+        coworker = "Non assigné";
+    }
     let innerHtml = '<li id=' + id + ' class="card" property="' + property
         + '" mv-multiple mv-accepts="todo in_progress completed">'
         + '<span>' + text + '</span>'
         + '<span class="assigned">' + coworker + '</span>'
         + '<button class="deleteTodo">delete</button>'
+        + '<button class="assignCoworker">Assigner</button>'
         + '</li>';
     return innerHtml;
 }
@@ -111,6 +119,32 @@ function initDragAndDrop() {
             todoTmp.updateStatus(ui.item[0].id, newStatus);
         }
     });
+}
+
+function showAssignForm() {
+    $(this).off('click');
+    let id = this.parentElement.id;
+    let coworkerTmp = new Coworker;
+    coworkerTmp.getAll().then(function (coworkers) {
+        let optionsList = [];
+        coworkers.forEach(function (coworker) {
+            let option = '<option value="' + coworker.id + '">' + coworker.firstname + ' ' + coworker.lastname + '</option>';
+            optionsList.push(option)
+        });
+        let select = '<select class="coworkerChoice">' + optionsList.join("") + '</select>';
+        $('#' + id).append(select);
+        $('#' + id + ' button.assignCoworker').on('click', function () {
+            $(this).parent().find("select").remove();
+            $(this).off('click');
+            $(this).on('click', showAssignForm);
+        });
+        $('#' + id + ' select').off('change');
+        $('#' + id + ' select').on('change', function () {
+            let todo = new Todo;
+            todo.updateCoworker(id, $(this).val());
+            initColumn();
+        });
+    })
 }
 
 
