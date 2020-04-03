@@ -200,9 +200,6 @@ $(document).ready(function () {
     $("a.two").click(function () {
         $("body").removeClass("bg1 , bg3").addClass("bg2");
     });
-    $("a.three").click(function () {
-        $("body").removeClass("bg1 , bg2").addClass("bg3");
-    });
 });
 
 // dropdown menu

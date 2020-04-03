@@ -3,8 +3,7 @@
 }   
 
 body{
-    background-image: url(/images/pexels-photo-450035.jpeg);
-    background-size: 1150px;
+    background: url(/images/image1.jpg);
     font-family: "Helvetica Neue", Helvetica, sans-serif;
     color: #444;
 }
@@ -130,9 +129,8 @@ input:focus{
     display: none;
 }
 
-.bg1 { background: url(/images/pexels-photo-450035.jpeg); } 
-.bg2 { background: url(/images/rock-731140_1280.webp); }
-.bg3 { background: url(votre_image_ici); }
+.bg1 { background: url(/images/image1.jpg); }
+.bg2 { background: url(/images/image2.jpg); }
 
 .body-wrap {
     min-height: 700px;
