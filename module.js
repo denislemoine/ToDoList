@@ -40,14 +40,20 @@ function showTodos(column, status) {
                 coworkerTmp.getOne(todo.coworker).then(function (coworker) {
                     var coworkerName = coworker.firstname + ' ' + coworker.lastname;
                     $(column).append(createItem(todo.name, todo.id, checked, coworkerName, status));
+                    $(".deleteTodo").off('click');
+                    $(".deleteTodo").on('click', deleteTodo);
+                    $(".assignCoworker").off('click');
+                    $(".assignCoworker").on('click', showAssignForm);
                 })
             } else {
                 $(column).append(createItem(todo.name, todo.id, checked));
+                $(".deleteTodo").off('click');
+                $(".deleteTodo").on('click', deleteTodo);
+                $(".assignCoworker").off('click');
+                $(".assignCoworker").on('click', showAssignForm);
             }
         });
-        $(".deleteTodo").off('click');
-        $(".deleteTodo").on('click', deleteTodo);
-    });
+    })
 }
 
 function addTodo() {
@@ -105,6 +111,7 @@ var refreshBrowser = function () {
 
 
 // CO-WORKERS PAGE
+
 showCoworkers();
 
 function showCoworkers() {
@@ -116,8 +123,11 @@ function showCoworkers() {
         });
         $(".deleteCoworker").on('click', deleteCoworker);
         $(".editCoworker").on('click', editCoworker);
-    })
-    $("#addCoworker").on('click', addCoworker);
+
+
+        $("#addCoworker").on('click', addCoworker);
+
+    });
 }
 
 function coworkerItem(firstname, lastname, id) {
@@ -137,7 +147,7 @@ function addCoworker() {
         alert('veuillez mettre les informations du coworkers');
     }
     else {
-        let coworker = new Coworker(firstnameInput, lastnameInput, []);
+        let coworker = new Coworker(firstnameInput, lastnameInput);
         coworker.add();
         showCoworkers();
     }
@@ -150,55 +160,41 @@ function deleteCoworker() {
 }
 
 
-
 function editCoworker() {
-
 
     let idLi = this.parentElement.id;
     $("#" + idLi).remove();
+    console.log(idLi);
 
-    let coworker = new Coworker();
-    coworker.getOne(idLi).then(function (value) {
-        // Create input
-        console.log(idLi);
+    let firstnamevalue = $(idLi).find("#firstname").val();
+    let lastnamevalue = $(idLi).find("input").val();
+      
+    $("#coworkersList").append("<li id =" + idLi + ">"
+        + "<input type='text' id='firstname' placeholder = 'nom' value = " + firstnamevalue + ">"
+        + "<input type='text' id='lastname' placeholder = 'prenom' value = " + lastnamevalue + ">"
+        + "<button class='editCoworker'>Modifier</button>"
+        + "<button class='deleteCoworker'>Supprimer</button></li>");
 
-        $("ul").append("<li id =" + idLi + ">"
-            + "<input type='text' id='firstname' placeholder = 'nom' value = " + value.firstname + ">"
-            + "<input type='text' id='lastname' placeholder = 'prenom' value = " + value.lastname + ">"
-            + "<button class='editCoworker'>Modifier</button>"
-            + "<button class='deleteCoworker'>Supprimer</button></li>");
-
-            $("#firstname").focusout(function() {
-                console.log("blur");
-                var firstnameInput = $("#firstname").val();
-                console.log(firstnameInput);
-                $(".editCoworker").click(function() {
-                    if (firstnameInput != "") {
-                        coworker.updateFirstName(idLi, firstnameInput);
-                    } else {
-                        alert("veuillez mettre à jour le nom")
-                    }
-                });
+        $("#firstname").keyup(function () {
+            var valueInputF = $("#firstname").val();
+            console.log(valueInputF);
+            $(".editCoworker").click(function () {
+                let newFirstName = new Coworker();
+                newFirstName.updateFirstName(idLi, valueInputF);
                 
-            });
+            })            
+        })
 
-       
-
-        // let lastnameInput = $("#lastname").val();
-
-        // console.log(firstnameInput);
-
-
-        // if (lastnameInput != "") {
-        //     coworker.updateFirstName(idLi, lastnameInput);
-        // } else {
-        //     alert("veuillez mettre à jour le prenom")
-        //     }
-        // });
-        
-
-    });
-    showCoworkers();
+        $("#lastname").keyup(function () {
+            var valueInputL = $("#lastname").val();
+            console.log(valueInputL);
+            $(".editCoworker").click(function () {
+                let newLastName = new Coworker();
+                newLastName.updateFirstName(idLi, valueInputL);
+                console.log("ça va envoyer");
+                showCoworkers();               
+            })            
+        })       
 }
 
 
