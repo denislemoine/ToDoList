@@ -69,5 +69,21 @@ class Coworker {
         });
     }
 
+    updateFirstName(id, value) {
+        db.collection("users").doc(id).update({firstname: value}).then(function () {
+            console.log("firstname successfully updated to " + value);
+        }).catch(function (error) {
+            console.log("Error updating firstname: ", error);
+        });
+    }
+
+    updateLastName(id, value) {
+        db.collection("users").doc(id).update({lastname: value}).then(function () {
+            console.log("lastname successfully updated to " + value);
+        }).catch(function (error) {
+            console.log("Error updating firstname: ", error);
+        });
+    }
+
 }
 

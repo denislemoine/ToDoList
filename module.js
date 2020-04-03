@@ -161,25 +161,47 @@ function editCoworker() {
     coworker.getOne(idLi).then(function (value) {
         // Create input
         console.log(idLi);
-       
+
         $("ul").append("<li id =" + idLi + ">"
             + "<input type='text' id='firstname' placeholder = 'nom' value = " + value.firstname + ">"
             + "<input type='text' id='lastname' placeholder = 'prenom' value = " + value.lastname + ">"
             + "<button class='editCoworker'>Modifier</button>"
             + "<button class='deleteCoworker'>Supprimer</button></li>");
-    })
 
-    $(".editCoworker").on('click', function() {
-       console.log("click");
-        if (firstnameInput != ""){
-                coworker.update("firstname :", this.parentElement.value);
-            }else {
-                alert ("il est 2h16 du matin, rempli moi ce champs !")
-            }
-            showCoworkers();
-    });
+            $("#firstname").focusout(function() {
+                console.log("blur");
+                var firstnameInput = $("#firstname").val();
+                console.log(firstnameInput);
+                $(".editCoworker").click(function() {
+                    if (firstnameInput != "") {
+                        coworker.updateFirstName(idLi, firstnameInput);
+                    } else {
+                        alert("veuillez mettre à jour le nom")
+                    }
+                });
+                
+            });
+
+       
+
+        // let lastnameInput = $("#lastname").val();
+
+        // console.log(firstnameInput);
+
+
+        // if (lastnameInput != "") {
+        //     coworker.updateFirstName(idLi, lastnameInput);
+        // } else {
+        //     alert("veuillez mettre à jour le prenom")
+        //     }
+        // });
         
+
+    });
+    showCoworkers();
 }
+
+
 
 // Modified Background
 
