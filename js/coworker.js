@@ -22,10 +22,11 @@ class Coworker {
         let userArray = [];
         return db.collection("users").withConverter(this.coworkerConverter).get().then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
-
-                let mydata = doc.data();
-                mydata.id = doc.id;
-                userArray.push(mydata);
+                if (doc.id !== "default") {
+                    let mydata = doc.data();
+                    mydata.id = doc.id;
+                    userArray.push(mydata);
+                }
             });
             return userArray;
         });
